@@ -1,7 +1,22 @@
-import { Inter } from "next/font/google";
+import { Alex_Brush, Montserrat } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+// components
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import NavContextProvider from "@/context/NavContext";
+
+const alexBrush = Alex_Brush({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-alexBrush",
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-montserrat",
+});
 
 export const metadata = {
   title: "Create Next App",
@@ -10,8 +25,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <NavContextProvider>
+      <html lang="en">
+        <body
+          className={`${alexBrush.variable} ${montserrat.variable} overflow-x-hidden relative`}
+        >
+          <Header />
+          {children}
+          <Footer />
+        </body>
+      </html>
+    </NavContextProvider>
   );
 }
